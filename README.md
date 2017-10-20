@@ -12,12 +12,20 @@ package main
 
 import (
 	validator "github.com/gidsi/go-spaceapi-validator"
-	fmt
+	"fmt"
+	"strconv"
 )
 
 func main() {
-	fmt.Println("Validate with following commit: " + validator.CommitHash)
-	validator.Validate(/* spaceapi json you want to validate */)
+	fmt.Println("Validate with following commigithub.com/gidsi/go-spaceapi-validatort: " + validator.CommitHash)
+	result, err := validator.Validate(`{}`/* spaceapi json you want to validate */)
+	
+	if err != nil {
+		panic(err)
+	}
+	
+	fmt.Println("Provided data is valid: " + strconv.FormatBool(result.Valid))
+	fmt.Println(result.Errors)
 }
 ```
 
