@@ -1,4 +1,4 @@
-package spaceapi_validator 
+package spaceapiValidator
 
 var CommitHash = "ed00121d3ff1b588ff9ec773b87e92f7859b5f8f"
 var SpaceApiSchemas = map[string]string{

@@ -1,4 +1,4 @@
-package spaceapi_validator
+package spaceapiValidator
 
 import (
 	"github.com/xeipuuv/gojsonschema"

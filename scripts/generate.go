@@ -72,7 +72,7 @@ func getSchemaFiles() []githubFile {
 
 func writeSchemaGoFile(commitHash string, files []githubFile) {
 	out, _ := os.Create("schemas.go")
-	out.Write([]byte("package spaceapi_validator \n\nvar CommitHash = \"" + commitHash + "\"\nvar SpaceApiSchemas = map[string]string{\n"))
+	out.Write([]byte("package spaceapiValidator \n\nvar CommitHash = \"" + commitHash + "\"\nvar SpaceApiSchemas = map[string]string{\n"))
 	for _, f := range files {
 		if strings.HasSuffix(f.Name, ".json") {
 			fileContent, err := b64.StdEncoding.DecodeString(f.Content)
