@@ -11,14 +11,14 @@ type spaceApiVersion struct {
 	Api string
 }
 
-// Result error tells you whats wrong with specific attributes of your SpaceApi file
+// ResultError tells you whats wrong with specific attributes of your SpaceApi file
 type ResultError struct {
 	Field       string `json:"field"`
 	Context     string `json:"context"`
 	Description string `json:"description"`
 }
 
-// Validation result tells you if the provided string is a valid SpaceApi schema
+// ValidationResult tells you if the provided string is a valid SpaceApi schema
 // and if not tells you what needs to be fixed
 type ValidationResult struct {
 	Valid  bool          `json:"valid"`
