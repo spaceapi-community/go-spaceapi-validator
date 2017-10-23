@@ -11,17 +11,20 @@ type spaceApiVersion struct {
 	Api string
 }
 
+// Result error tells you whats wrong with specific attributes of your SpaceApi file
 type ResultError struct {
 	Field       string `json:"field"`
 	Context     string `json:"context"`
 	Description string `json:"description"`
 }
 
+// Result of the Validate function
 type ValidationResult struct {
 	Valid  bool          `json:"valid"`
 	Errors []ResultError `json:"errors"`
 }
 
+// Validate a string to match jsonschema of SpaceApi
 func Validate(document string) (ValidationResult, error) {
 	documentLoader := gojsonschema.NewStringLoader(document)
 
