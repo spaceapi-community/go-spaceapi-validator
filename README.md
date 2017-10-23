@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Validate with following commigithub.com/gidsi/go-spaceapi-validatort: " + validator.CommitHash)
+	fmt.Println("Validate with following commit: " + validator.CommitHash)
 	result, err := validator.Validate(`{}`/* spaceapi json you want to validate */)
 	
 	if err != nil {
