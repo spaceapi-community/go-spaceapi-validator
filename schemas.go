@@ -1,6 +1,6 @@
-package spaceapiValidator
+package spaceapiValidator 
 
-var CommitHash = "ed00121d3ff1b588ff9ec773b87e92f7859b5f8f"
+var CommitHash = "a58a6ba2057c73cda2b886f5ac257c463a181ee8"
 var SpaceApiSchemas = map[string]string{
 "11": `{
   "description": "SpaceAPI 0.11",
@@ -81,7 +81,7 @@ var SpaceApiSchemas = map[string]string{
             "type": "string"
           },
           "t": {
-            "description": "Unix timestamp when the event occured",
+            "description": "Unix timestamp when the event occurred",
             "type": "number"
           },
           "extra": {
@@ -239,7 +239,7 @@ var SpaceApiSchemas = map[string]string{
             "type": "string"
           },
           "t": {
-            "description": "Unix timestamp when the event occured",
+            "description": "Unix timestamp when the event occurred",
             "type": "number"
           },
           "extra": {
@@ -516,7 +516,7 @@ var SpaceApiSchemas = map[string]string{
             "type": "string"
           },
           "timestamp": {
-            "description": "Unix timestamp when the event occured",
+            "description": "Unix timestamp when the event occurred",
             "type": "number"
           },
           "extra": {
@@ -611,7 +611,7 @@ var SpaceApiSchemas = map[string]string{
           "type": "string"
         },
         "issue_mail": {
-          "description": "A seperate email address for issue reports (see the <em>issue_report_channels</em> field). This value can be Base64-encoded.",
+          "description": "A separate email address for issue reports (see the <em>issue_report_channels</em> field). This value can be Base64-encoded.",
           "type": "string"
         }
       }
@@ -893,7 +893,7 @@ var SpaceApiSchemas = map[string]string{
               }
             },
             "beta_gamma": {
-              "description": "A sensor which cannot filter beta and gamma radiation seperately.",
+              "description": "A sensor which cannot filter beta and gamma radiation separately.",
               "type": "array",
               "items": {
                 "type": "object",
@@ -1665,7 +1665,7 @@ var SpaceApiSchemas = map[string]string{
             "type": "string"
           },
           "timestamp": {
-            "description": "Unix timestamp when the event occured",
+            "description": "Unix timestamp when the event occurred",
             "type": "number"
           },
           "extra": {
@@ -1764,7 +1764,7 @@ var SpaceApiSchemas = map[string]string{
           "type": "string"
         },
         "issue_mail": {
-          "description": "A seperate email address for issue reports (see the <em>issue_report_channels</em> field). This value can be Base64-encoded.",
+          "description": "A separate email address for issue reports (see the <em>issue_report_channels</em> field). This value can be Base64-encoded.",
           "type": "string"
         }
       }
@@ -2046,7 +2046,7 @@ var SpaceApiSchemas = map[string]string{
               }
             },
             "beta_gamma": {
-              "description": "A sensor which cannot filter beta and gamma radiation seperately.",
+              "description": "A sensor which cannot filter beta and gamma radiation separately.",
               "type": "array",
               "items": {
                 "type": "object",
@@ -2774,7 +2774,7 @@ var SpaceApiSchemas = map[string]string{
             "type": "string"
           },
           "t": {
-            "description": "Unix timestamp when the event occured",
+            "description": "Unix timestamp when the event occurred",
             "type": "number"
           },
           "extra": {
@@ -2872,7 +2872,7 @@ var SpaceApiSchemas = map[string]string{
             "type": "string"
           },
           "t": {
-            "description": "Unix timestamp when the event occured",
+            "description": "Unix timestamp when the event occurred",
             "type": "number"
           },
           "extra": {
