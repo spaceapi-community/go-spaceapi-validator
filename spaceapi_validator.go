@@ -18,7 +18,8 @@ type ResultError struct {
 	Description string `json:"description"`
 }
 
-// Result of the Validate function
+// Validation result tells you if the provided string is a valid SpaceApi schema
+// and if not tells you what needs to be fixed
 type ValidationResult struct {
 	Valid  bool          `json:"valid"`
 	Errors []ResultError `json:"errors"`
