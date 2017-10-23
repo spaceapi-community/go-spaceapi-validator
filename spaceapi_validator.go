@@ -1,8 +1,8 @@
 package spaceapiValidator
 
 import (
-	"github.com/xeipuuv/gojsonschema"
 	"encoding/json"
+	"github.com/xeipuuv/gojsonschema"
 )
 
 //go:generate go run scripts/generate.go
@@ -12,13 +12,13 @@ type spaceApiVersion struct {
 }
 
 type ResultError struct {
-	Field string `json:"field"`
-	Context string `json:"context"`
+	Field       string `json:"field"`
+	Context     string `json:"context"`
 	Description string `json:"description"`
 }
 
 type ValidationResult struct {
-	Valid bool `json:"valid"`
+	Valid  bool          `json:"valid"`
 	Errors []ResultError `json:"errors"`
 }
 

@@ -1,8 +1,8 @@
-package spaceapiValidator 
+package spaceapiValidator
 
 var CommitHash = "a58a6ba2057c73cda2b886f5ac257c463a181ee8"
 var SpaceApiSchemas = map[string]string{
-"11": `{
+	"11": `{
   "description": "SpaceAPI 0.11",
   "type": "object",
   "properties": {
@@ -160,7 +160,7 @@ var SpaceApiSchemas = map[string]string{
     "icon"
   ]
 }`,
-"12": `{
+	"12": `{
   "description": "SpaceAPI 0.12",
   "type": "object",
   "properties": {
@@ -356,7 +356,7 @@ var SpaceApiSchemas = map[string]string{
     "icon"
   ]
 }`,
-"13": `{
+	"13": `{
   "description": "SpaceAPI 0.13",
   "type": "object",
   "properties": {
@@ -1501,7 +1501,7 @@ var SpaceApiSchemas = map[string]string{
     "issue_report_channels"
   ]
 }`,
-"14": `{
+	"14": `{
   "description": "SpaceAPI 0.14",
   "type": "object",
   "properties": {
@@ -2692,7 +2692,7 @@ var SpaceApiSchemas = map[string]string{
   ]
 }
 `,
-"8": `{
+	"8": `{
   "description": "SpaceAPI 0.8",
   "type": "object",
   "properties": {
@@ -2793,7 +2793,7 @@ var SpaceApiSchemas = map[string]string{
     "open"
   ]
 }`,
-"9": `{
+	"9": `{
   "description": "SpaceAPI 0.9",
   "type": "object",
   "properties": {

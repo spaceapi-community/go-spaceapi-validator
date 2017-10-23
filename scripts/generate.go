@@ -1,20 +1,20 @@
 package main
 
 import (
-    b64 "encoding/base64"
-    "os"
-    "strings"
-    "net/http"
-	"fmt"
+	b64 "encoding/base64"
 	"encoding/json"
+	"fmt"
+	"net/http"
+	"os"
+	"strings"
 )
 
 var repoRef = "spacedirectory/schema"
 
 type githubFile struct {
-	Url string
-	Name string
-	Content string
+	Url      string
+	Name     string
+	Content  string
 	Encoding string
 }
 
@@ -29,7 +29,7 @@ type githubCommit struct {
 func main() {
 	writeSchemaGoFile(
 		getCommitHash(),
-			getSchemaFiles(),
+		getSchemaFiles(),
 	)
 }
 
@@ -72,13 +72,13 @@ func getSchemaFiles() []githubFile {
 
 func writeSchemaGoFile(commitHash string, files []githubFile) {
 	out, _ := os.Create("schemas.go")
-	out.Write([]byte("package spaceapiValidator \n\nvar CommitHash = \"" + commitHash + "\"\nvar SpaceApiSchemas = map[string]string{\n"))
+	out.Write([]byte("package spaceapiValidator\n\nvar CommitHash = \"" + commitHash + "\"\nvar SpaceApiSchemas = map[string]string{\n"))
 	for _, f := range files {
 		if strings.HasSuffix(f.Name, ".json") {
 			fileContent, err := b64.StdEncoding.DecodeString(f.Content)
 
 			if err == nil {
-				out.Write([]byte("\"" + strings.TrimSuffix(strings.TrimSuffix(f.Name, ".json"), "-draft") + "\": `"))
+				out.Write([]byte("\t\"" + strings.TrimSuffix(strings.TrimSuffix(f.Name, ".json"), "-draft") + "\": `"))
 				out.Write(fileContent)
 				out.Write([]byte("`,\n"))
 			}
