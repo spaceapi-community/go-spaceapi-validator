@@ -2,6 +2,7 @@ package spaceapiValidator
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/xeipuuv/gojsonschema"
 )
 
@@ -27,6 +28,10 @@ type ValidationResult struct {
 
 // Validate a string to match jsonschema of SpaceApi
 func Validate(document string) (ValidationResult, error) {
+	myResult := ValidationResult{}
+	if document == "" {
+		return myResult, errors.New("document is empty")
+	}
 	documentLoader := gojsonschema.NewStringLoader(document)
 
 	suppliedVersion := spaceApiVersion{}
@@ -49,7 +54,7 @@ func Validate(document string) (ValidationResult, error) {
 		})
 	}
 
-	myResult := ValidationResult{
+	myResult = ValidationResult{
 		result.Valid(),
 		myErrors,
 	}
