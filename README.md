@@ -1,10 +1,8 @@
-spaceapi-validator
+go-spaceapi-validator
 ==
 [![Go Report Card](https://goreportcard.com/badge/github.com/gidsi/go-spaceapi-validator)](https://goreportcard.com/report/github.com/gidsi/go-spaceapi-validator)
 
 This is a simple library for golang to validate spaceapi specs
-
-Right now it uses the SpaceApi spec found at https://github.com/spacedirectory/schema until the spec is moved
 
 usage
 ==
@@ -12,7 +10,7 @@ usage
 package main
 
 import (
-	validator "github.com/gidsi/go-spaceapi-validator"
+	validator "github.com/spaceapi-community/go-spaceapi-validator"
 	"fmt"
 	"strconv"
 )
