@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var repoRef = "spacedirectory/schema"
+var repoRef = "spaceapi/schema"
 
 type githubFile struct {
 	Url      string
