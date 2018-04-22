@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/xeipuuv/gojsonschema"
+	"strings"
 )
 
 //go:generate go run scripts/generate.go
@@ -37,7 +38,7 @@ func Validate(document string) (ValidationResult, error) {
 	suppliedVersion := spaceApiVersion{}
 	json.Unmarshal([]byte(document), &suppliedVersion)
 
-	schemaString, ok := SpaceApiSchemas[suppliedVersion.Api]
+	schemaString, ok := SpaceApiSchemas[strings.Replace(suppliedVersion.Api, "0.", "", 1)]
 	if !ok {
 		schemaString = SpaceApiSchemas["13"]
 	}
