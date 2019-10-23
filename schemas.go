@@ -1,12 +1,13 @@
 package spaceapiValidator
 
 // CommitHash contains the hash of the commit the Validate function validates against
-var CommitHash = "85008147fdd12809bff3b23291d6b5ea5f6e8b9d"
+var CommitHash = "377001fa1abb25d8988f187e7ad4d40d900d81b8"
 
 // SpaceApiSchemas load from the repository as a map
 var SpaceApiSchemas = map[string]string{
 	"11": `{
-  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "https://schema.spaceapi.io/11.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "SpaceAPI 0.11",
   "type": "object",
   "properties": {
@@ -163,9 +164,11 @@ var SpaceApiSchemas = map[string]string{
     "open",
     "icon"
   ]
-}`,
+}
+`,
 	"12": `{
-  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "https://schema.spaceapi.io/12.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "SpaceAPI 0.12",
   "type": "object",
   "properties": {
@@ -360,9 +363,11 @@ var SpaceApiSchemas = map[string]string{
     "open",
     "icon"
   ]
-}`,
+}
+`,
 	"13": `{
-  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "https://schema.spaceapi.io/13.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "SpaceAPI 0.13",
   "type": "object",
   "properties": {
@@ -398,7 +403,7 @@ var SpaceApiSchemas = map[string]string{
           "type": "number"
         },
         "lon": {
-          "description": "Longitude of your space location, in degree with decimal places. Use positive values for locations west of Greenwich, and negative values for locations east of Greenwich.",
+          "description": "Longitude of your space location, in degree with decimal places. Use positive values for locations east of Greenwich, and negative values for locations west of Greenwich.",
           "type": "number"
         }
       },
@@ -439,11 +444,11 @@ var SpaceApiSchemas = map[string]string{
       "minItems": 1
     },
     "stream": {
-      "description": "A mapping of stream types to stream URLs.If you use other stream types make a <a href=\"add-your-space\" target=\"_blank\">change request</a> or prefix yours with <samp>ext_</samp> .",
+      "description": "A mapping of stream types to stream URLs. If you use other stream types make a <a href=\"https://github.com/spaceapi/schema/pulls\" target=\"_blank\">pull request</a> or prefix yours with <samp>ext_</samp>.",
       "type": "object",
       "properties": {
         "m4": {
-          "description": "Your mpg stream URL. Example: <samp>{\"mp4\": \"http//example.org/stream.mpg\"}</samp>",
+          "description": "Your mpg stream URL. Example: <samp>{\"mp4\": \"http://example.org/stream.mpg\"}</samp>",
           "type": "string"
         },
         "mjpeg": {
@@ -1118,7 +1123,7 @@ var SpaceApiSchemas = map[string]string{
                     ]
                   },
                   "direction": {
-                    "description": "The wind direction in degrees. Use this <a href=\"https://github.com/slopjong/OpenSpaceLint/issues/80\" target=\"_blank_\">mapping</a> to convert the degrees into a string.",
+                    "description": "The wind direction in degrees.",
                     "type": "object",
                     "properties": {
                       "value": {
@@ -1254,7 +1259,7 @@ var SpaceApiSchemas = map[string]string{
                 "type": "number"
               },
               "unit": {
-                "description": "What's the currency? If your currency is missing open a new <a href=\"https://github.com/slopjong/OpenSpaceLint/issues\" target=\"_blank\">issue</a> and request the addition of your currency according <a href=\"http://de.wikipedia.org/wiki/ISO_4217\" target=\"_blank\">ISO 4217</a>.",
+                "description": "What's the currency? Please use the ones provided, in the next version you can use currency definitions according to <a href=\"https://en.wikipedia.org/wiki/ISO_4217\" target=\"_blank\">ISO 4217</a>",
                 "type": "string",
                 "enum": [
                   "BTC",
@@ -1506,9 +1511,11 @@ var SpaceApiSchemas = map[string]string{
     "contact",
     "issue_report_channels"
   ]
-}`,
+}
+`,
 	"14": `{
-  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "https://schema.spaceapi.io/14-draft.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "SpaceAPI 0.14",
   "type": "object",
   "properties": {
@@ -1544,7 +1551,7 @@ var SpaceApiSchemas = map[string]string{
           "type": "number"
         },
         "lon": {
-          "description": "Longitude of your space location, in degree with decimal places. Use positive values for locations west of Greenwich, and negative values for locations east of Greenwich.",
+          "description": "Longitude of your space location, in degree with decimal places. Use positive values for locations east of Greenwich, and negative values for locations west of Greenwich.",
           "type": "number"
         },
         "timezone": {
@@ -1592,7 +1599,7 @@ var SpaceApiSchemas = map[string]string{
       "description": "A mapping of stream types to stream URLs.If you use other stream types make a <a href=\"add-your-space\" target=\"_blank\">change request</a> or prefix yours with <samp>ext_</samp> .",
       "type": "object",
       "properties": {
-        "m4": {
+        "mp4": {
           "description": "Your mpg stream URL. Example: <samp>{\"mp4\": \"http//example.org/stream.mpg\"}</samp>",
           "type": "string"
         },
@@ -1611,11 +1618,8 @@ var SpaceApiSchemas = map[string]string{
       "type": "object",
       "properties": {
         "open": {
-          "description": "A flag which indicates if the space is currently open or closed. The state 'undefined' can be achieved by assigning this field the value 'null' (without the quotes). In most (all?) programming languages this is evaluated to false so that no app should break",
-          "type": [
-            "boolean",
-            "null"
-          ]
+          "description": "A flag which indicates whether the space is currently open or closed. The state 'undefined' can be achieved by omitting this field. A missing 'open' property carries the semantics of a temporary unavailability of the state, whereas the absence of the 'state' property itself means the state is generally not implemented for this space.",
+          "type": "boolean"
         },
         "lastchange": {
           "description": "The Unix timestamp when the space status changed most recently",
@@ -1647,10 +1651,7 @@ var SpaceApiSchemas = map[string]string{
             "closed"
           ]
         }
-      },
-      "required": [
-        "open"
-      ]
+      }
     },
     "events": {
       "description": "Events which happened recently in your space and which could be interesting to the public, like 'User X has entered/triggered/did something at timestamp Z'",
@@ -1724,6 +1725,14 @@ var SpaceApiSchemas = map[string]string{
               "xmpp": {
                   "description": "XMPP (Jabber) ID",
                   "type": "string"
+              },
+              "mastodon": {
+                  "description": "Mastodon username. Example: @ordnung@chaos.social",
+                  "type": "string"
+              },
+              "matrix": {
+                "description": "Matrix username. Example: <samp>@user:example.org</samp>",
+                "type": "string"
               }
             }
           }
@@ -1736,19 +1745,13 @@ var SpaceApiSchemas = map[string]string{
           "description": "Twitter handle, with leading @",
           "type": "string"
         },
+        "mastodon": {
+          "description": "Mastodon username: Example: @ordnung@chaos.social.",
+          "type": "string"
+        },
         "facebook": {
           "description": "Facebook account URL.",
           "type": "string"
-        },
-        "google": {
-          "description": "Google services.",
-          "type": "object",
-          "properties": {
-            "plus": {
-              "description": "Google plus URL.",
-              "type": "string"
-            }
-          }
         },
         "identica": {
           "description": "Identi.ca or StatusNet account, in the form <samp>yourspace@example.org</samp>",
@@ -1771,24 +1774,18 @@ var SpaceApiSchemas = map[string]string{
           "type": "string"
         },
         "issue_mail": {
-          "description": "A separate email address for issue reports (see the <em>issue_report_channels</em> field). This value can be Base64-encoded.",
+          "description": "A separate email address for issue reports. This value can be Base64-encoded.",
+          "type": "string"
+        },
+        "gopher": {
+          "description": "A URL to find information about the Space in the Gopherspace. Example: gopher://gopher.binary-kitchen.de",
+          "type": "string"
+        },
+        "matrix": {
+          "description": "Matrix channel/community for the Hackerspace. Example: <samp>#spaceroom:example.org</samp> or <samp>+spacecommunity:example.org</samp>",
           "type": "string"
         }
       }
-    },
-    "issue_report_channels": {
-      "description": "This array defines all communication channels where you want to get automated issue reports about your SpaceAPI endpoint from the revalidator. This field is meant for internal usage only and it should never be consumed by any app. At least one channel must be defined. Please consider that when using <samp>ml</samp> the mailing list moderator has to moderate incoming emails or add the sender email to the subscribers. If you don't break your SpaceAPI implementation you won't get any notifications ;-)",
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": [
-          "email",
-          "issue_mail",
-          "twitter",
-          "ml"
-        ]
-      },
-      "minItems": 1
     },
     "sensors": {
       "description": "Data of various sensors in your space (e.g. temperature, humidity, amount of Club-Mate left, \u2026). The only canonical property is the <em>temp</em> property, additional sensor types may be defined by you. In this case, you are requested to share your definition for inclusion in this specification.",
@@ -2272,7 +2269,7 @@ var SpaceApiSchemas = map[string]string{
                     ]
                   },
                   "direction": {
-                    "description": "The wind direction in degrees. Use this <a href=\"https://github.com/slopjong/OpenSpaceLint/issues/80\" target=\"_blank_\">mapping</a> to convert the degrees into a string.",
+                    "description": "The wind direction in degrees.",
                     "type": "object",
                     "properties": {
                       "value": {
@@ -2570,32 +2567,6 @@ var SpaceApiSchemas = map[string]string{
         }
       }
     },
-    "cache": {
-      "description": "Specifies options about caching of your SpaceAPI endpoint. Use this if you want to avoid hundreds/thousands of application instances crawling your status.",
-      "type": "object",
-      "properties": {
-        "schedule": {
-          "description": "Cache update cycle. This field must match the basic regular expression <code>^[mhd]\\.[0-9]{2}$</code>, where the first field specifies a unit of time (<code>m</code> for 1 minute, <code>h</code> for 1 hour, <code>d</code> for 1 day), and the second field specifies how many of this unit should be skipped between updates. For example, <samp>m.10</samp> means one updates every 10 minutes, <samp>h.03</samp> means one update every 3 hours, and <samp>d.01</samp> means one update every day.",
-          "type": "string",
-          "enum": [
-            "m.02",
-            "m.05",
-            "m.10",
-            "m.15",
-            "m.30",
-            "h.01",
-            "h.02",
-            "h.04",
-            "h.08",
-            "h.12",
-            "d.01"
-          ]
-        }
-      },
-      "required": [
-        "schedule"
-      ]
-    },
     "projects": {
       "description": "Your project sites (links to GitHub, wikis or wherever your projects are hosted)",
       "type": "array",
@@ -2603,48 +2574,8 @@ var SpaceApiSchemas = map[string]string{
         "type": "string"
       }
     },
-    "radio_show": {
-      "description": "A list of radio shows that your hackerspace might broadcast.",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the radio show.",
-            "type": "string"
-          },
-          "url": {
-            "description": "The stream URL which must end in a filename or a semicolon such as <br><ul><li>http://signal.hackerspaces.org:8090/signal.mp3</li><li>http://85.214.64.213:8060/;</ul>",
-            "type": "string"
-          },
-          "type": {
-            "description": "The stream encoder.",
-            "type": "string",
-            "enum": [
-              "mp3",
-              "ogg"
-            ]
-          },
-          "start": {
-            "description": "Specify the start time by using the <a href=\"http://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> standard. This encodes the time as follows: <br><br><ul><li>Combined date and time in UTC: 2013-06-10T10:00Z</li><li>Combined date and time in localtime with the timezone offset: 2013-06-10T12:00+02:00</li><li>Combined date and time in localtime with the timezone offset: 2013-06-10T07:00-03:00</li></ul> The examples refer all to the same time.",
-            "type": "string"
-          },
-          "end": {
-            "description": "Specify the end time by using the <a href=\"http://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> standard. This encodes the time as follows: <br><br><ul><li>Combined date and time in UTC: 2013-06-10T10:00Z</li><li>Combined date and time in localtime with the timezone offset: 2013-06-10T12:00+02:00</li><li>Combined date and time in localtime with the timezone offset: 2013-06-10T07:00-03:00</li></ul> The examples refer all to the same time.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "url",
-          "type",
-          "start",
-          "end"
-        ]
-      }
-    },
     "membership_plans": {
-        "description": "A list of the different membership plans your hackerspace might have.",
+        "description": "A list of the different membership plans your hackerspace might have. Set the value according to your billing process. For example, if your membership fee is 10€ per month, but you bill it yearly (aka. the member pays the fee once per year), set the amount to 120 an the billing_interval to yearly.",
         "type": "array",
         "items": {
             "type": "object",
@@ -2661,8 +2592,8 @@ var SpaceApiSchemas = map[string]string{
                     "description": "What's the currency? It should be formatted according to <a href=\"https://en.wikipedia.org/wiki/ISO_4217\" target=\"_blank\">ISO 4217</a> short-code format.",
                     "type": "string"
                 },
-                "renewal_interval": {
-                    "description": "How often is the membership renewed? If you select other, please specify in the description what your renewal interval is.",
+                "billing_interval": {
+                    "description": "How often is the membership billed? If you select other, please specify in the description what your billing interval is.",
                     "type": "string",
                     "enum": [
                         "yearly",
@@ -2682,7 +2613,7 @@ var SpaceApiSchemas = map[string]string{
                 "name",
                 "value",
                 "currency",
-                "renewal_interval"
+                "billing_interval"
             ]
         }
     }
@@ -2693,14 +2624,13 @@ var SpaceApiSchemas = map[string]string{
     "logo",
     "url",
     "location",
-    "state",
-    "contact",
-    "issue_report_channels"
+    "contact"
   ]
 }
 `,
 	"8": `{
-  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "https://schema.spaceapi.io/8.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "SpaceAPI 0.8",
   "type": "object",
   "properties": {
@@ -2800,9 +2730,11 @@ var SpaceApiSchemas = map[string]string{
     "url",
     "open"
   ]
-}`,
+}
+`,
 	"9": `{
-  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "https://schema.spaceapi.io/9.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "SpaceAPI 0.9",
   "type": "object",
   "properties": {
@@ -2940,5 +2872,6 @@ var SpaceApiSchemas = map[string]string{
     "url",
     "open"
   ]
-}`,
+}
+`,
 }
