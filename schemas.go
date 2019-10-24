@@ -1,10 +1,10 @@
-package spaceapiValidator
+package spaceapivalidator
 
 // CommitHash contains the hash of the commit the Validate function validates against
 var CommitHash = "377001fa1abb25d8988f187e7ad4d40d900d81b8"
 
-// SpaceApiSchemas load from the repository as a map
-var SpaceApiSchemas = map[string]string{
+// SpaceAPISchemas load from the repository as a map
+var SpaceAPISchemas = map[string]string{
 	"11": `{
   "$id": "https://schema.spaceapi.io/11.json",
   "$schema": "http://json-schema.org/draft-07/schema#",

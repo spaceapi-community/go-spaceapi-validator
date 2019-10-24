@@ -1,4 +1,4 @@
-package spaceapiValidator
+package spaceapivalidator
 
 import (
 	"encoding/json"
@@ -9,8 +9,8 @@ import (
 
 //go:generate go run scripts/generate.go
 
-type spaceApiVersion struct {
-	Api string
+type spaceAPIVersion struct {
+	API string
 }
 
 // ResultError tells you whats wrong with specific attributes of your SpaceApi file
@@ -35,12 +35,12 @@ func Validate(document string) (ValidationResult, error) {
 	}
 	documentLoader := gojsonschema.NewStringLoader(document)
 
-	suppliedVersion := spaceApiVersion{}
+	suppliedVersion := spaceAPIVersion{}
 	json.Unmarshal([]byte(document), &suppliedVersion)
 
-	schemaString, ok := SpaceApiSchemas[strings.Replace(suppliedVersion.Api, "0.", "", 1)]
+	schemaString, ok := SpaceAPISchemas[strings.Replace(suppliedVersion.API, "0.", "", 1)]
 	if !ok {
-		schemaString = SpaceApiSchemas["13"]
+		schemaString = SpaceAPISchemas["13"]
 	}
 	var schema = gojsonschema.NewStringLoader(schemaString)
 

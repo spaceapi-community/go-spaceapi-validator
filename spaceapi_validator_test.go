@@ -1,4 +1,4 @@
-package spaceapiValidator
+package spaceapivalidator
 
 import (
 	"testing"
