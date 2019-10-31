@@ -36,7 +36,10 @@ func Validate(document string) (ValidationResult, error) {
 	documentLoader := gojsonschema.NewStringLoader(document)
 
 	suppliedVersion := spaceAPIVersion{}
-	json.Unmarshal([]byte(document), &suppliedVersion)
+	err := json.Unmarshal([]byte(document), &suppliedVersion)
+	if err != nil {
+		return myResult, err
+	}
 
 	schemaString, ok := SpaceAPISchemas[strings.Replace(suppliedVersion.API, "0.", "", 1)]
 	if !ok {
@@ -45,8 +48,11 @@ func Validate(document string) (ValidationResult, error) {
 	var schema = gojsonschema.NewStringLoader(schemaString)
 
 	result, err := gojsonschema.Validate(schema, documentLoader)
+	if err != nil {
+		return myResult, err
+	}
 
-	var myErrors = []ResultError{}
+	var myErrors []ResultError
 	for _, bar := range result.Errors() {
 		myErrors = append(myErrors, ResultError{
 			bar.Field(),

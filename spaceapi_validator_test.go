@@ -4,6 +4,7 @@ import (
 	"testing"
 )
 
+var wrongVersion = `{ "api": "0.5" }`
 var invalid13 = `{ "api": "0.13" }`
 var valid13 = `{ "api": "0.13", "open": true, "space": "example", "url": "https://example.com", "logo": "https://example.com/logo.png", "location": { "lon": 42, "lat": 23 }, "state": { "open": true }, "contact": {}, "issue_report_channels": [ "email" ] }`
 
@@ -25,5 +26,15 @@ func TestValidate(t *testing.T) {
 	validErrors := validResult.Errors
 	if len(validErrors) != 0 {
 		t.Error("Schema should have got no errors, got", len(validErrors))
+	}
+
+	validResult, err := Validate("")
+	if err == nil {
+		t.Error("Should provide an error on faulty json")
+	}
+
+	invalidResult, _ = Validate(wrongVersion)
+	if invalidResult.Valid == true {
+		t.Error("Expected validation to be false, got", invalidResult.Valid)
 	}
 }
