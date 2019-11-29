@@ -1,7 +1,7 @@
 package spaceapivalidator
 
 // CommitHash contains the hash of the commit the Validate function validates against
-var CommitHash = "377001fa1abb25d8988f187e7ad4d40d900d81b8"
+var CommitHash = "68da57382ab211e0f0fa8e9c13c22de7811cac83"
 
 // SpaceAPISchemas load from the repository as a map
 var SpaceAPISchemas = map[string]string{
@@ -2490,6 +2490,69 @@ var SpaceAPISchemas = map[string]string{
               "value"
             ]
           }
+        },
+        "network_traffic": {
+          "description": "The current network traffic, in bits/second or packets/second (or both)",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "properties": {
+                "type": "object",
+                "properties": {
+                  "bits_per_second": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "description": "The measurement value, in bits/second",
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "maximum": {
+                        "description": "The maximum available throughput in bits/second, e.g. as sold by your ISP",
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  },
+                  "packets_per_second": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "description": "The measurement value, in packets/second",
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  }
+                }
+              },
+              "name": {
+                "description": "Name of the measurement, e.g. to distinguish between upstream and downstream traffic",
+                "type": "string"
+              },
+              "location": {
+                "description": "Location the measurement relates to, e.g. <samp>WiFi</samp> or <samp>Uplink</samp>",
+                "type": "string"
+              },
+              "description": {
+                "description": "An extra field that you can use to attach some additional information to this sensor instance",
+                "type": "string"
+              }
+            },
+            "required": [
+              "properties"
+            ]
+          },
+          "minItems": 1
         }
       }
     },
