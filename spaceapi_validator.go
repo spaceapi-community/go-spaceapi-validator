@@ -1,3 +1,5 @@
+// Package spaceapivalidator provides a validator for the SpaceAPI schemas
+// check spaceapi.io for more information
 package spaceapivalidator
 
 import (
