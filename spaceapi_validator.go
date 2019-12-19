@@ -5,6 +5,7 @@ package spaceapivalidator
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/xeipuuv/gojsonschema"
 	"strings"
 )
@@ -12,7 +13,7 @@ import (
 //go:generate go run scripts/generate.go
 
 type spaceAPIVersion struct {
-	API string
+	API interface{}
 }
 
 // ResultError tells you whats wrong with specific attributes of your SpaceApi file
@@ -43,7 +44,7 @@ func Validate(document string) (ValidationResult, error) {
 		return myResult, err
 	}
 
-	schemaString, ok := SpaceAPISchemas[strings.Replace(suppliedVersion.API, "0.", "", 1)]
+	schemaString, ok := SpaceAPISchemas[strings.Replace(fmt.Sprintf("%v", suppliedVersion.API), "0.", "", 1)]
 	if !ok {
 		schemaString = SpaceAPISchemas["13"]
 	}
