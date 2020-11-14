@@ -53,15 +53,7 @@ func Validate(document string) (ValidationResult, error) {
 		return myResult, err
 	}
 
-	versionList := suppliedVersion.APICompatibility
-    oldVersion := strings.Replace(fmt.Sprintf("%v", suppliedVersion.API), "0.", "", 1)
-	if oldVersion != "" {
-		versionList = append(versionList, oldVersion)
-	}
-
-	if len(versionList) == 0 {
-		versionList = []string{"14"}
-	}
+	versionList := getVersionList(suppliedVersion)
 
 	for _, version := range versionList {
 		schemaString, _ := SpaceAPISchemas[version]
@@ -94,4 +86,17 @@ func Validate(document string) (ValidationResult, error) {
 	}
 
 	return myResult, err
+}
+
+func getVersionList(suppliedVersion spaceAPIVersion) []string {
+	versionList := suppliedVersion.APICompatibility
+	oldVersion := strings.Replace(fmt.Sprintf("%v", suppliedVersion.API), "0.", "", 1)
+	if oldVersion != "<nil>" {
+		versionList = append(versionList, oldVersion)
+	}
+
+	if len(versionList) == 0 {
+		versionList = []string{"14"}
+	}
+	return versionList
 }
