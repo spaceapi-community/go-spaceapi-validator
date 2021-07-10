@@ -1,7 +1,7 @@
 package spaceapivalidator
 
 // CommitHash contains the hash of the commit the Validate function validates against
-var CommitHash = "e3a440a75b05a8b34dbb1255f0951431ad497e0f"
+var CommitHash = "19afba712e0b9e9ab8138d3b1fd55d3523898872"
 
 // SpaceAPISchemas load from the repository as a map
 var SpaceAPISchemas = map[string]string{
@@ -1437,8 +1437,11 @@ var SpaceAPISchemas = map[string]string{
       "type": "object",
       "properties": {
         "open": {
-          "description": "A flag which indicates whether the space is currently open or closed. The state 'undefined' can be achieved by omitting this field. A missing 'open' property carries the semantics of a temporary unavailability of the state, whereas the absence of the 'state' property itself means the state is generally not implemented for this space.",
-          "type": "boolean"
+          "description": "A flag which indicates whether the space is currently open or closed. The state 'undefined' can be achieved by omitting this field. A missing 'open' property carries the semantics of a temporary unavailability of the state, whereas the absence of the 'state' property itself means the state is generally not implemented for this space. This field is also allowed to explicitly have the value null for backwards compatibility with older schema versions, but this is deprecated and will be removed in a future version.",
+          "type": [
+            "boolean",
+            "null"
+          ]
         },
         "lastchange": {
           "description": "The Unix timestamp when the space status changed most recently",
@@ -3714,6 +3717,22 @@ var SpaceAPISchemas = map[string]string{
           "value",
           "currency",
           "billing_interval"
+        ]
+      }
+    },
+    "linked_spaces": {
+      "description": "A list of spaces you know and feel connected too.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "description": "The space's website according to their SpaceAPI endpoint",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
         ]
       }
     }
