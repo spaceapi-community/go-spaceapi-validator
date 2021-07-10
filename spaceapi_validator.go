@@ -41,7 +41,7 @@ type ValidationResult struct {
 
 // Validate a string to match jsonschema of SpaceApi
 func Validate(document string) (ValidationResult, error) {
-	myResult := ValidationResult{}
+	myResult := ValidationResult{ Valid: true }
 	if document == "" {
 		return myResult, errors.New("document is empty")
 	}
@@ -60,6 +60,7 @@ func Validate(document string) (ValidationResult, error) {
 		var schema = gojsonschema.NewStringLoader(schemaString)
 		result, err := gojsonschema.Validate(schema, documentLoader)
 		if err != nil {
+			myResult.Valid = false
 			return myResult, err
 		}
 
@@ -80,8 +81,8 @@ func Validate(document string) (ValidationResult, error) {
 
 		myResult.Errors = append(myResult.Errors, myErrors...)
 
-		if result.Valid() {
-			myResult.Valid = true
+		if !result.Valid() {
+			myResult.Valid = false
 		}
 	}
 
