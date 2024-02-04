@@ -1,6 +1,7 @@
 package spaceapivalidator
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -12,6 +13,7 @@ var invalid14 = `{ "api_compatibility": [ "14" ], "space_invalid": "example", "u
 var valid15 = `{ "api_compatibility": [ "15" ], "space": "example", "url": "https://example.com", "logo": "https://example.com/logo.png", "location": { "lon": 42, "lat": 23 }, "state": { "open": true }, "contact": {} }`
 var invalid15 = `{ "api_compatibility": [ "15" ], "space_invalid": "example", "url": "https://example.com", "logo": "https://example.com/logo.png", "location": { "lon": 42, "lat": 23 }, "state": { "open": true }, "contact": {} }`
 var wrongVersionNumeric = `{ "api": 0.13, "open": true, "space": "example", "url": "https://example.com", "logo": "https://example.com/logo.png", "location": { "lon": 42, "lat": 23 }, "state": { "open": true }, "contact": {}, "issue_report_channels": [ "email" ] }`
+var unknownApiCompatibility = `{ "api_compatibility": [ "142" ] }`
 var missingIssueReportChannel13 = `{
   "api": "0.13",
   "api_compatibility": ["14"],
@@ -150,7 +152,7 @@ func TestValidate(t *testing.T) {
 	invalidErrors = invalidResult.Errors
 	if len(invalidErrors) != 6 {
 		t.Logf("%v", invalidResult)
-		t.Error("Schema should have got 1 errors, got", len(invalidErrors))
+		t.Error("Schema should have got 6 errors, got", len(invalidErrors))
 	}
 
 	validResult, err := Validate("")
@@ -168,5 +170,21 @@ func TestValidate(t *testing.T) {
 		t.Error("validation error shouldn't show up on valid json")
 	} else if invalidResult.Valid == true {
 		t.Error("Expected validation to be false, got", invalidResult.Valid)
+	}
+
+	// Test handling of unknown schema versions
+	invalidResult, err = Validate(unknownApiCompatibility)
+	if err != nil {
+		t.Error("validation error shouldn't show up on valid json")
+	} else if invalidResult.Valid == true {
+		t.Error("Expected validation to be false, got true")
+	}
+	invalidErrors = invalidResult.Errors
+	if len(invalidErrors) != 1 {
+		t.Logf("%v", invalidResult)
+		t.Error("Schema should have got 1 errors, got", len(invalidErrors))
+	}
+	if !strings.Contains(invalidErrors[0].Description, "Endpoint declares compatibility with schema version 142, which isn't supported") {
+		t.Error("Did not find expected 'unknown schema version' error:", invalidErrors[0].Description)
 	}
 }

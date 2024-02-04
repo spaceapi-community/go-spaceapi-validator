@@ -56,7 +56,26 @@ func Validate(document string) (ValidationResult, error) {
 	versionList := getVersionList(suppliedVersion)
 
 	for _, version := range versionList {
-		schemaString, _ := SpaceAPISchemas[version]
+		schemaString, found := SpaceAPISchemas[version]
+		if !found {
+			// Version not found. Thus, we cannot validate. Show an
+			// error for the declared "api_compatibilty" and continue.
+			myResult.Valid = false
+			invalidVersionErrors := []ResultError{
+				{
+					"api_compatibility",
+					"(root).api_compatibility",
+					fmt.Sprintf("Endpoint declares compatibility with schema version %s, which isn't supported", version),
+				},
+			}
+			myResult.Schemas = append(myResult.Schemas, VersionValidationResult{
+				version,
+				false,
+				invalidVersionErrors,
+			})
+			myResult.Errors = append(myResult.Errors, invalidVersionErrors...)
+			continue
+		}
 		var schema = gojsonschema.NewStringLoader(schemaString)
 		result, err := gojsonschema.Validate(schema, documentLoader)
 		if err != nil {
