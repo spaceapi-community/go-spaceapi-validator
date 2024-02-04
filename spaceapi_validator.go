@@ -26,22 +26,22 @@ type ResultError struct {
 
 // VersionValidationResult validation result per version
 type VersionValidationResult struct {
-	Version	string			`json:"version"`
-	Valid	bool			`json:"valid"`
-	Errors	[]ResultError	`json:"errors"`
+	Version string        `json:"version"`
+	Valid   bool          `json:"valid"`
+	Errors  []ResultError `json:"errors"`
 }
 
 // ValidationResult tells you if the provided string is a valid SpaceApi schema
 // and if not tells you what needs to be fixed
 type ValidationResult struct {
-	Valid	bool						`json:"valid"`
-	Schemas	[]VersionValidationResult	`json:"version_validation"`
-	Errors	[]ResultError				`json:"errors"`
+	Valid   bool                      `json:"valid"`
+	Schemas []VersionValidationResult `json:"version_validation"`
+	Errors  []ResultError             `json:"errors"`
 }
 
 // Validate a string to match jsonschema of SpaceApi
 func Validate(document string) (ValidationResult, error) {
-	myResult := ValidationResult{ Valid: true }
+	myResult := ValidationResult{Valid: true}
 	if document == "" {
 		return myResult, errors.New("document is empty")
 	}
