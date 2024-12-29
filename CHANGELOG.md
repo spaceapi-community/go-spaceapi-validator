@@ -13,6 +13,10 @@ Possible log types:
 
 ### Unreleased
 
+### v0.2.0 (2024-12-29)
+
+- [added] Support for schema v15
+
 ### v0.1.0 (2024-02-05)
 
 - [fixed] Handle unsupported / unknown schema versions (#2)
