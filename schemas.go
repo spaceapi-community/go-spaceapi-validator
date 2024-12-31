@@ -1,7 +1,7 @@
 package spaceapivalidator
 
 // CommitHash contains the hash of the commit the Validate function validates against
-var CommitHash = "b3534f2397fc6feedcf05ce79f2d5a8bc331cdb4"
+var CommitHash = "cc27cd47a30cb4ca7626350bf904a2364fee0f33"
 
 // SpaceAPISchemas load from the repository as a map
 var SpaceAPISchemas = map[string]string{
@@ -4251,7 +4251,7 @@ var SpaceAPISchemas = map[string]string{
         "type": "string"
       },
       "contains": {
-        "const": "16"
+        "const": "16-draft"
       }
     },
     "space": {
@@ -4595,6 +4595,13 @@ var SpaceAPISchemas = map[string]string{
           "type": "string",
           "examples": [
             "mumble://mumble.example.org/spaceroom?version=1.2.0"
+          ]
+        },
+        "telegram": {
+          "description": "URL to Telegram channel",
+          "type": "string",
+          "examples": [
+            "https://t.me/example-channel"
           ]
         }
       }
