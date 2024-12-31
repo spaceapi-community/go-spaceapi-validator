@@ -1,7 +1,7 @@
 package spaceapivalidator
 
 // CommitHash contains the hash of the commit the Validate function validates against
-var CommitHash = "9914a1eb86fdc1067a0cf7627a84b03dfc13666c"
+var CommitHash = "b3534f2397fc6feedcf05ce79f2d5a8bc331cdb4"
 
 // SpaceAPISchemas load from the repository as a map
 var SpaceAPISchemas = map[string]string{
@@ -2889,7 +2889,7 @@ var SpaceAPISchemas = map[string]string{
       }
     },
     "contact": {
-      "description": "Contact information about your space. You must define at least one which is in the list of allowed values of the issue_report_channels field.",
+      "description": "Contact information about your space",
       "type": "object",
       "properties": {
         "phone": {
@@ -4453,7 +4453,7 @@ var SpaceAPISchemas = map[string]string{
       }
     },
     "contact": {
-      "description": "Contact information about your space. You must define at least one which is in the list of allowed values of the issue_report_channels field.",
+      "description": "Contact information about your space",
       "type": "object",
       "properties": {
         "phone": {
