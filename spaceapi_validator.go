@@ -53,30 +53,30 @@ func Validate(document string) (ValidationResult, error) {
 		return myResult, err
 	}
 
-	versionList := getVersionList(suppliedVersion)
+	versionList, invalidVersions := getVersionList(suppliedVersion)
+
+	for _, version := range invalidVersions {
+		// Version not found. Thus, we cannot validate. Show an
+		// error for the declared "api_compatibilty" and continue.
+		myResult.Valid = false
+		invalidVersionErrors := []ResultError{
+			{
+				"api_compatibility",
+				"(root).api_compatibility",
+				fmt.Sprintf("Endpoint declares compatibility with schema version %s, which isn't supported", version),
+			},
+		}
+		myResult.Schemas = append(myResult.Schemas, VersionValidationResult{
+			version,
+			false,
+			invalidVersionErrors,
+		})
+		myResult.Errors = append(myResult.Errors, invalidVersionErrors...)
+	}
 
 	for _, version := range versionList {
-		schemaString, found := SpaceAPISchemas[version]
-		if !found {
-			// Version not found. Thus, we cannot validate. Show an
-			// error for the declared "api_compatibilty" and continue.
-			myResult.Valid = false
-			invalidVersionErrors := []ResultError{
-				{
-					"api_compatibility",
-					"(root).api_compatibility",
-					fmt.Sprintf("Endpoint declares compatibility with schema version %s, which isn't supported", version),
-				},
-			}
-			myResult.Schemas = append(myResult.Schemas, VersionValidationResult{
-				version,
-				false,
-				invalidVersionErrors,
-			})
-			myResult.Errors = append(myResult.Errors, invalidVersionErrors...)
-			continue
-		}
-		var schema = gojsonschema.NewStringLoader(schemaString)
+		schemaVersion := SpaceAPISchemas[version]
+		var schema = gojsonschema.NewStringLoader(schemaVersion)
 		result, err := gojsonschema.Validate(schema, documentLoader)
 		if err != nil {
 			myResult.Valid = false
@@ -108,15 +108,27 @@ func Validate(document string) (ValidationResult, error) {
 	return myResult, err
 }
 
-func getVersionList(suppliedVersion spaceAPIVersion) []string {
-	versionList := suppliedVersion.APICompatibility
-	oldVersion := strings.Replace(fmt.Sprintf("%v", suppliedVersion.API), "0.", "", 1)
-	if oldVersion != "<nil>" {
-		versionList = append(versionList, oldVersion)
+func getVersionList(suppliedVersion spaceAPIVersion) ([]string, []string) {
+	var versionList = []string{}
+	var invalidVersions = []string{}
+	for _, v14version := range suppliedVersion.APICompatibility {
+		if schema, found := SpaceApiVersioning[v14version]; found && schema == V14 {
+			versionList = append(versionList, v14version)
+		} else {
+			invalidVersions = append(invalidVersions, v14version)
+		}
+	}
+	v12version := strings.Replace(fmt.Sprintf("%v", suppliedVersion.API), "0.", "", 1)
+	if v12version != "<nil>" {
+		if schema, found := SpaceApiVersioning[v12version]; found && schema == V12 {
+			versionList = append(versionList, v12version)
+		} else {
+			invalidVersions = append(invalidVersions, v12version)
+		}
 	}
 
-	if len(versionList) == 0 {
-		versionList = []string{"14"}
+	if len(versionList) == 0 && len(invalidVersions) == 0 {
+		versionList = []string{"15"}
 	}
-	return versionList
+	return versionList, invalidVersions
 }
