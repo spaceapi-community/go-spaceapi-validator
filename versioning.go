@@ -9,7 +9,7 @@ const (
 	V14
 )
 
-var SpaceApiVersioning = map[string]VersionSchema {
+var SpaceApiVersioning = map[string]VersionSchema{
 	"12": V12,
 	"13": V12,
 	"14": V14,
