@@ -79,6 +79,7 @@ var missingIssueReportChannel13 = `{
   }
 }`
 var noVersion = `{ "data": "asd" }`
+var wrongVersionUsage = `{ "api": "14", "api_compatibility": [ "13", "0.13" ], "space": "example", "url": "https://example.com", "logo": "https://example.com/logo.png", "location": { "lon": 42, "lat": 23 }, "state": { "open": true }, "contact": {} }`
 
 func TestValidate(t *testing.T) {
 	invalidResult, _ := Validate(invalid13)
@@ -150,9 +151,9 @@ func TestValidate(t *testing.T) {
 		t.Error("Expected validation to be false, got", invalidResult.Valid)
 	}
 	invalidErrors = invalidResult.Errors
-	if len(invalidErrors) != 6 {
+	if len(invalidErrors) != 5 {
 		t.Logf("%v", invalidResult)
-		t.Error("Schema should have got 6 errors, got", len(invalidErrors))
+		t.Error("Schema should have got 5 errors, got", len(invalidErrors))
 	}
 
 	validResult, err := Validate("")
@@ -186,5 +187,39 @@ func TestValidate(t *testing.T) {
 	}
 	if !strings.Contains(invalidErrors[0].Description, "Endpoint declares compatibility with schema version 142, which isn't supported") {
 		t.Error("Did not find expected 'unknown schema version' error:", invalidErrors[0].Description)
+	}
+
+	invalidResult, err = Validate(wrongVersionUsage)
+	if err != nil {
+		t.Error("validation error shouldn't show up on valid json")
+	} else if invalidResult.Valid == true {
+		t.Error("Expected validation to be false, got true")
+	}
+	invalidErrors = invalidResult.Errors
+	if len(invalidErrors) != 3 {
+		t.Logf("%v", invalidResult)
+		t.Error("Schema should have got 3 errors, got", len(invalidErrors))
+	}
+	if !strings.Contains(invalidErrors[0].Description, "Endpoint declares compatibility with schema version 13, which isn't supported") {
+		t.Error("Did not find expected 'unknown schema version' error:", invalidErrors[0].Description)
+	}
+	if !strings.Contains(invalidErrors[1].Description, "Endpoint declares compatibility with schema version 0.13, which isn't supported") {
+		t.Error("Did not find expected 'unknown schema version' error:", invalidErrors[1].Description)
+	}
+	if !strings.Contains(invalidErrors[2].Description, "Endpoint declares compatibility with schema version 14, which isn't supported") {
+		t.Error("Did not find expected 'unknown schema version' error:", invalidErrors[2].Description)
+	}
+}
+
+func TestSchemaVersioningMatch(t *testing.T) {
+	for v, _ := range SpaceAPISchemas {
+		if _, found := SpaceApiVersioning[v]; !found {
+			t.Error("Version", v, "from schemas.SpaceAPISchemas missing in versioning.SpaceApiVersioning")
+		}
+	}
+	for v, _ := range SpaceApiVersioning {
+		if _, found := SpaceAPISchemas[v]; !found {
+			t.Error("Version", v, "from versioning.SpaceApiVersioning missing in schemas.SpaceAPISchemas")
+		}
 	}
 }

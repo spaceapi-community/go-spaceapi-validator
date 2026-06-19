@@ -13,6 +13,9 @@ Possible log types:
 
 ### Unreleased
 
+- [added] Support for schema 16-draft
+- [changed] Fail validation on usage of wrong versioning scheme (i.e. `.api` vs `.api_compatibility`)
+
 ### v0.2.0 (2024-12-29)
 
 - [added] Support for schema v15
